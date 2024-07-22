@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Model, Repository } from 'sequelize-typescript';
-import { filters } from 'src/utils/filters';
+import { IDatabaseService } from './idatabase.service';
 
 @Injectable()
-export class DatabaseService<T extends Model> {
+export class DatabaseService<T extends Model> implements IDatabaseService<T> {
   constructor(private readonly genericRepository: Repository<T>) {}
 
   async create(entity: any): Promise<T> {

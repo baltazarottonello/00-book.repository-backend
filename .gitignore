@@ -57,3 +57,16 @@ pids
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 node_modules
+
+# Static Files
+*.png
+
+##NGINX
+nginx.conf
+
+##DOCKER
+Dockerfile
+Docker-compose
+
+##Utils
+scripts/*

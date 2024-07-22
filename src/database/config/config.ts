@@ -1,4 +1,5 @@
 import { SequelizeOptions } from 'sequelize-typescript';
+import { RefreshToken } from 'src/tokens/tokens.entity';
 import { User } from 'src/users/users.entity';
 
 export default module;
@@ -21,5 +22,5 @@ export const dev = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   synchronize: true,
-  models: [User],
+  models: [User, RefreshToken],
 } as SequelizeOptions;

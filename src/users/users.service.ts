@@ -8,7 +8,7 @@ import { DatabaseService } from 'src/database/database.service';
 export class UsersService extends DatabaseService<User> {
   constructor(
     @Inject('USERS_REPOSITORY')
-    private readonly usersRepository: typeof User, //TODO: BaseService for CRUD in DB so we apply DRY principle and make the Service more readable
+    private readonly usersRepository: typeof User,
   ) {
     super(usersRepository);
   }
@@ -22,12 +22,8 @@ export class UsersService extends DatabaseService<User> {
     return result;
   }
 
-  async find(entity: any): Promise<User> {
-    const result = await this.usersRepository.findOne({
-      where: {
-        email: entity.email,
-      },
-    });
+  async findOne(options: any): Promise<User> {
+    const result = await super.findOne(options);
     return result;
   }
 }
