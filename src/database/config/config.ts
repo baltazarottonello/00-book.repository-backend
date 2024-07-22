@@ -1,4 +1,5 @@
 import { SequelizeOptions } from 'sequelize-typescript';
+import { User } from 'src/users/users.entity';
 
 export default module;
 
@@ -19,5 +20,6 @@ export const dev = {
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  models: [],
+  synchronize: true,
+  models: [User],
 } as SequelizeOptions;
