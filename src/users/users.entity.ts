@@ -43,3 +43,11 @@ export class User extends Model {
   })
   isActive: boolean;
 }
+
+// TODO : Validate email
+export interface SignUpDTO {
+  name: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
