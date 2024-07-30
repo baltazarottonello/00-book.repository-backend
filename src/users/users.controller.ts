@@ -10,14 +10,14 @@ export class UsersController {
   @Post('/signup')
   async signUp(@Res() res: any, @Body() body: SignUpDTO): Promise<any> {
     try {
-      const newUser: SignUpDTO = {
+      const user = {
         name: body.name,
         lastName: body.lastName,
         email: body.email,
         password: body.password,
-      };
-      await this.usersService.create(newUser);
-      return res.status(200).json('User Created');
+      } as User;
+      await this.usersService.create(user);
+      return res.status(200).json('User created');
     } catch (e) {
       return e instanceof ValidationError
         ? res.status(409).json({ message: 'User already exists' })
