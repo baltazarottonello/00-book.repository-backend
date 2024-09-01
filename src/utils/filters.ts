@@ -1,9 +1,7 @@
-export namespace filters {
-  export const findByEmail = (email: string) => {
-    return {
-      where: {
-        email: email,
-      },
-    };
+export const findByEmailFilter = (email: string) => {
+  return {
+    where: {
+      email: email,
+    },
   };
-}
+};

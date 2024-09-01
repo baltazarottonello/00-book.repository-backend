@@ -1,4 +1,6 @@
-import { Model, Table, Column, DataType } from 'sequelize-typescript';
+import { IsEmail, IsString } from 'class-validator';
+import { Model, Table, Column, DataType, HasMany } from 'sequelize-typescript';
+import { RefreshToken } from 'src/tokens/tokens.entity';
 
 @Table({
   timestamps: false,
@@ -42,12 +44,25 @@ export class User extends Model {
     defaultValue: true,
   })
   isActive: boolean;
+
+  @HasMany(() => RefreshToken)
+  refToken = RefreshToken;
 }
 
-// TODO : Validate email
-export interface SignUpDTO {
+export class SignUpDTO {
+  @IsString()
   name: string;
+  @IsString()
   lastName: string;
+  @IsEmail()
   email: string;
+  @IsString()
   password: string;
+}
+
+export class UserLoginDTO {
+  @IsEmail()
+  email: string;
+  @IsString()
+  loginPassword: string;
 }
