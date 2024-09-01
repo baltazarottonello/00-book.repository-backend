@@ -15,4 +15,8 @@ export class DatabaseService<T extends Model> implements IDatabaseService<T> {
     const result = await this.genericRepository.findOne(options);
     return result;
   }
+
+  async update(props: any, options?: any): Promise<void> {
+    await this.genericRepository.update(props, options);
+  }
 }

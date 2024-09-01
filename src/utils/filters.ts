@@ -5,3 +5,10 @@ export const findByEmailFilter = (email: string) => {
     },
   };
 };
+
+export const findRefreshTokenByUserIdAndStatus = (
+  userId: number,
+  status: boolean,
+) => {
+  return { where: { userId: userId, isActive: status } };
+};

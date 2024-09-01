@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { RefreshToken, TokenPayload } from './tokens.entity';
 import { JwtService } from '@nestjs/jwt';
+import { findRefreshTokenByUserIdAndStatus } from 'src/utils/filters';
 
 @Injectable()
 export class TokenService extends DatabaseService<RefreshToken> {
@@ -30,11 +31,18 @@ export class TokenService extends DatabaseService<RefreshToken> {
   }
 
   async checkRefreshToken(userId: number): Promise<boolean> {
-    const token = await super.findOne({
-      where: { userId: userId },
-    });
+    const filter = findRefreshTokenByUserIdAndStatus(userId, true);
+
+    const token = await super.findOne(filter);
 
     const valid = await this.jwtService.verifyAsync(token.refreshToken);
+
+    if (!valid) {
+      const props = {
+        isActive: false,
+      };
+      await super.update(props, filter);
+    }
 
     return valid ? true : false;
   }
