@@ -1,4 +1,5 @@
 import {
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
@@ -39,6 +40,9 @@ export class RefreshToken extends Model {
     defaultValue: true,
   })
   isActive: boolean;
+
+  @BelongsTo(() => User)
+  user: User;
 }
 
 export class TokenPayload {

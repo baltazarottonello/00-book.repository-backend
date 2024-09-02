@@ -46,7 +46,7 @@ export class User extends Model {
   isActive: boolean;
 
   @HasMany(() => RefreshToken)
-  refToken = RefreshToken;
+  refreshToken = RefreshToken;
 }
 
 export class SignUpDTO {
