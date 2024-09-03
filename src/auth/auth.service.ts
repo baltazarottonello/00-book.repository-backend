@@ -30,10 +30,10 @@ export class AuthService {
       throw new CredentialsError('Incorrect password');
     }
 
-    const tokens = await this.tokensService.createTokens({
+    const AcessToken = await this.tokensService.createAccessToken({
       sub: id,
     });
 
-    return { accessToken: tokens.token }; //TODO: verify tokens via guards
+    return { accessToken: AcessToken };
   }
 }

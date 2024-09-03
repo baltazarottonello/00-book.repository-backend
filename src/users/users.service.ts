@@ -24,6 +24,7 @@ export class UsersService extends DatabaseService<User> {
 
   async findOne(options: any): Promise<User> {
     const result = await super.findOne(options);
+
     return result;
   }
 }

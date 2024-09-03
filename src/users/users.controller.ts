@@ -7,7 +7,7 @@ import { ValidationError } from 'sequelize';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  //TO DELETE
+  //TODO: DELETE
   @Get()
   async ping(@Res() res: any) {
     res.status(200).json('pong');
@@ -23,7 +23,6 @@ export class UsersController {
         email,
         password,
       } as User;
-      console.log(user);
       await this.usersService.create(user);
       return res.status(200).json('User created');
     } catch (e) {
