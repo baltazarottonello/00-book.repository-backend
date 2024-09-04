@@ -21,11 +21,11 @@ export class RefreshToken extends Model {
   })
   id: number;
 
+  @ForeignKey(() => User)
   @Column({
     allowNull: false,
     type: DataType.INTEGER,
   })
-  @ForeignKey(() => User)
   userId: number;
 
   @Column({
@@ -41,7 +41,7 @@ export class RefreshToken extends Model {
   })
   isActive: boolean;
 
-  @BelongsTo(() => User)
+  @BelongsTo(() => User, { onDelete: 'CASCADE' }) //WHEN A USER DELETED REFTOKEN/S ALSO DELETED
   user: User;
 }
 

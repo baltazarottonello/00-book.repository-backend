@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { SecurityService } from './security/security.service';
 import { SecurityModule } from './security/security.module';
 import { TokenModule } from './tokens/tokens.module';
+import { BooksModule } from './books/books.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { TokenModule } from './tokens/tokens.module';
     UsersModule,
     AuthModule,
     SecurityModule,
+    BooksModule,
   ],
   providers: [SecurityService],
 })

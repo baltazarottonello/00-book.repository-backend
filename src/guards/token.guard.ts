@@ -31,7 +31,7 @@ export default class TokenGuard implements CanActivate {
           throw new UnauthorizedException();
         }
 
-        const newToken = await this.tokenService.createTokens(payload);
+        const newToken = await this.tokenService.createAccessToken(payload);
 
         req['Authorization'] = `Bearer ${newToken}`;
 

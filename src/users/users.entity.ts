@@ -11,6 +11,7 @@ export class User extends Model {
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
+    type: DataType.INTEGER,
   })
   id: number;
 
@@ -46,7 +47,7 @@ export class User extends Model {
   isActive: boolean;
 
   @HasMany(() => RefreshToken)
-  refreshToken = RefreshToken;
+  refreshTokens: RefreshToken[];
 }
 
 export class SignUpDTO {

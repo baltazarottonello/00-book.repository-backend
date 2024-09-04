@@ -14,21 +14,30 @@ export class TokenService extends DatabaseService<RefreshToken> {
     super(tokensRepository);
   }
 
-  async createTokens(payload: TokenPayload) {
-    payload['iat'] = Date.now();
+  async createAccessToken(payload: TokenPayload): Promise<string> {
+    payload.iat = Date.now();
     const token = await this.jwtService.signAsync(payload);
     await this.createRefreshToken(payload);
 
-    return { token };
+    return token;
   }
 
-  private async createRefreshToken(payload: any) {
-    const refreshToken = this.jwtService.signAsync(payload, {
-      secret: process.env.REFRESH_SECRET,
-      expiresIn: '3600s',
-    });
-
-    return refreshToken;
+  private async createRefreshToken(payload: TokenPayload): Promise<string> {
+    try {
+      const refreshToken = await this.jwtService.signAsync(payload, {
+        secret: process.env.REFRESH_SECRET,
+        expiresIn: '3600s',
+      });
+      const entity = {
+        userId: payload.sub,
+        isActive: true,
+        refreshToken: refreshToken,
+      } as RefreshToken;
+      await super.create(entity);
+      return refreshToken;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async checkRefreshToken(userId: number): Promise<boolean> {
