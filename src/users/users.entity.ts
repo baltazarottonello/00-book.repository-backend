@@ -1,18 +1,26 @@
 import { IsEmail, IsString } from 'class-validator';
-import { Model, Table, Column, DataType, HasMany } from 'sequelize-typescript';
+import {
+  Model,
+  Table,
+  Column,
+  DataType,
+  HasMany,
+  IsUUID,
+} from 'sequelize-typescript';
 import { RefreshToken } from 'src/tokens/tokens.entity';
 
 @Table({
   indexes: [{ name: 'user_email', unique: true, fields: ['email'] }],
 })
 export class User extends Model {
+  @IsUUID(4)
   @Column({
-    allowNull: false,
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
     primaryKey: true,
-    autoIncrement: true,
-    type: DataType.INTEGER,
+    allowNull: false,
   })
-  id: number;
+  id: string;
 
   @Column({
     allowNull: false,

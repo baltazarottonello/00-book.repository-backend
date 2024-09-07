@@ -28,7 +28,7 @@ export class UsersController {
     } catch (e) {
       return e instanceof ValidationError
         ? res.status(409).json('User already exists')
-        : res.status(500).json({ message: e.message });
+        : res.status(500).json('Server error');
     }
   }
 }

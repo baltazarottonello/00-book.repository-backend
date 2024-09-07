@@ -16,6 +16,6 @@
 
 ##Indexes
 
-##user_email [email]
+##user_email (email)
 
-##reftoken_userid_isactive [userId, isActive]
+##reftoken_userid_isactive (userId, isActive)
