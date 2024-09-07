@@ -16,6 +16,6 @@
 
 ##Indexes
 
-##User /id (PK) / email
+##user_email [email]
 
-##RefreshToken /UNIQUE[userId (FK), isActive]
+##reftoken_userid_isactive [userId, isActive]
