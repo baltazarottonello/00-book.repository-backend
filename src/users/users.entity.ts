@@ -3,8 +3,7 @@ import { Model, Table, Column, DataType, HasMany } from 'sequelize-typescript';
 import { RefreshToken } from 'src/tokens/tokens.entity';
 
 @Table({
-  timestamps: false,
-  indexes: [{ fields: ['email'], unique: true, name: 'emailIndex' }],
+  indexes: [{ name: 'user_email', unique: true, fields: ['email'] }],
 })
 export class User extends Model {
   @Column({

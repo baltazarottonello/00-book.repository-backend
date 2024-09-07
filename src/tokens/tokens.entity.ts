@@ -10,7 +10,14 @@ import { User } from 'src/users/users.entity';
 
 @Table({
   indexes: [
-    { name: 'userid_reftoken', type: 'UNIQUE', fields: ['userId', 'isActive'] },
+    {
+      name: 'reftoken_userid_isactive',
+      unique: true,
+      fields: ['userId', 'isActive'],
+      where: {
+        isActive: true,
+      },
+    },
   ],
 })
 export class RefreshToken extends Model {
