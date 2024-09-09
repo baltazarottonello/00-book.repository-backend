@@ -17,35 +17,42 @@ export class TokenService extends DatabaseService<RefreshToken> {
   async createAccessToken(payload: TokenPayload): Promise<string> {
     payload.iat = Date.now();
     const token = await this.jwtService.signAsync(payload);
-    await this.createRefreshToken(payload);
+    const RefreshTokenActive = await this.checkRefreshToken(payload.sub);
+
+    if (!RefreshTokenActive) {
+      await this.createRefreshToken(payload);
+      return token;
+    }
 
     return token;
   }
 
-  private async createRefreshToken(payload: TokenPayload): Promise<string> {
-    try {
-      const refreshToken = await this.jwtService.signAsync(payload, {
-        secret: process.env.REFRESH_SECRET,
-        expiresIn: '3600s',
-      });
-      const entity = {
-        userId: payload.sub,
-        isActive: true,
-        refreshToken: refreshToken,
-      } as RefreshToken;
-      await super.create(entity);
-      return refreshToken;
-    } catch (e) {
-      console.log(e);
-    }
+  private async createRefreshToken(payload: TokenPayload): Promise<void> {
+    const refreshToken = await this.jwtService.signAsync(payload, {
+      secret: JwtConstants.JWT_REFRESH_SECRET,
+      expiresIn: '3600s',
+    });
+    const entity = {
+      userId: payload.sub,
+      isActive: true,
+      refreshToken: refreshToken,
+    } as RefreshToken;
+    await super.create(entity);
+    return;
   }
 
-  async checkRefreshToken(userId: number): Promise<boolean> {
+  async checkRefreshToken(userId: string): Promise<boolean> {
     const filter = findRefreshTokenByUserIdAndStatus(userId, true);
 
-    const data = await super.findOne(filter);
+    const refToken = await super.findOne(filter);
 
-    const valid = await this.jwtService.verifyAsync(data.refreshToken);
+    if (!refToken) {
+      return false;
+    }
+
+    const valid = await this.jwtService.verifyAsync(refToken.refreshToken, {
+      secret: JwtConstants.JWT_REFRESH_SECRET,
+    });
 
     if (!valid) {
       const props = {

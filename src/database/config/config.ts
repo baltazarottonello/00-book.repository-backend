@@ -9,7 +9,6 @@ export const test = {
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  synchronize: true,
 } as SequelizeOptions;
 
 export const dev = {
@@ -19,5 +18,4 @@ export const dev = {
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  synchronize: true,
 } as SequelizeOptions;

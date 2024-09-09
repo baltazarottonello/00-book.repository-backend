@@ -8,7 +8,7 @@ export const databaseProviders = [
     useFactory: async () => {
       const sequelize = new Sequelize(dev);
       sequelize.addModels(DatabaseConstants.DB_MODELS);
-      await sequelize.sync({ alter: true }); //CHANGE?
+      await sequelize.sync({ force: true }); // DEVELOPMENT ONLY, USE MIGRATIONS FOR PRODUCTION
       return sequelize;
     },
   },

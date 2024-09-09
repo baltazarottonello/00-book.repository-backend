@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from 'src/database/database.module';
-import { tokensProvider } from './tokens.provider';
 import { TokenService } from './tokens.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtConstants } from 'src/utils/constants';
+import { tokensProvider } from './tokens.provider';
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import { JwtConstants } from 'src/utils/constants';
     }),
     DatabaseModule,
   ],
-  providers: [TokenService, ...tokensProvider],
+  providers: [TokenService, tokensProvider],
   exports: [TokenService],
 })
 export class TokenModule {}
