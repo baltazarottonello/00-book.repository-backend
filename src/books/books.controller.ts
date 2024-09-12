@@ -1,6 +1,15 @@
-import { Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  // Body,
+  Controller,
+  Get,
+  Post,
+  // Req,
+  // Res,
+  UseGuards,
+} from '@nestjs/common';
 import { BooksService } from './books.service';
 import TokenGuard from 'src/guards/token.guard';
+//import { UploadBookDTO } from '../books/books.entity';
 
 @Controller('/books')
 export class BooksControllers {
@@ -12,8 +21,12 @@ export class BooksControllers {
   @Get('/:isbn')
   async findOne() {}
 
-  @Post()
-  async uploadBook() {}
+  // @Post()
+  // async uploadBook(
+  //   @Body() dto: UploadBookDTO,
+  //   @Req() req: any,
+  //   @Res() res: any,
+  // ) {}
 
   @UseGuards(TokenGuard)
   @Get() //findAllBooks for a specific User (get userId from TokenPayload)

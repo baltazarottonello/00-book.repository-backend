@@ -4,6 +4,7 @@ import { RefreshToken, TokenPayload } from './tokens.entity';
 import { JwtService } from '@nestjs/jwt';
 import { findRefreshTokenByUserIdAndStatus } from 'src/utils/filters';
 import { JwtConstants } from '../utils/constants';
+import { Optional } from 'sequelize';
 
 @Injectable()
 export class TokenService extends DatabaseService<RefreshToken> {
@@ -36,7 +37,7 @@ export class TokenService extends DatabaseService<RefreshToken> {
       userId: payload.sub,
       isActive: true,
       refreshToken: refreshToken,
-    } as RefreshToken;
+    } as Optional<any, string>;
     await super.create(entity);
     return;
   }

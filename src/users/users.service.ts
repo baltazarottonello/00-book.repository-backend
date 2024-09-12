@@ -3,6 +3,7 @@ import { User } from './users.entity';
 import { Constants } from '../utils/constants';
 import * as bcrypt from 'bcrypt';
 import { DatabaseService } from 'src/database/database.service';
+import { Attributes, FindOptions, Optional } from 'sequelize';
 
 @Injectable()
 export class UsersService extends DatabaseService<User> {
@@ -12,7 +13,7 @@ export class UsersService extends DatabaseService<User> {
   ) {
     super(usersRepository);
   }
-  async create(entity: User): Promise<User> {
+  async create(entity: Optional<any, string>): Promise<User> {
     const hashedPassword = await bcrypt.hash(
       entity.password,
       Constants.SALT_OR_ROUNDS,
@@ -22,7 +23,7 @@ export class UsersService extends DatabaseService<User> {
     return result;
   }
 
-  async findOne(options: any): Promise<User> {
+  async findOne(options: FindOptions<Attributes<User>>): Promise<User> {
     const result = await super.findOne(options);
 
     return result;
