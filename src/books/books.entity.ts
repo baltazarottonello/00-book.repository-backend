@@ -1,3 +1,4 @@
+import { IsString } from 'class-validator';
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
 @Table({
@@ -61,4 +62,9 @@ export class Books extends Model {
   access: string;
   //   @HasMany(() => Authors, { onDelete: 'NO ACTION' })
   //   authors: Authors[];
+}
+
+export class UploadBookDTO {
+  @IsString() //TODO : make a Regex for ISBN
+  isbn: string;
 }

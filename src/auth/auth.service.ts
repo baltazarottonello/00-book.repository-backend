@@ -14,7 +14,7 @@ export class AuthService {
     private tokensService: TokenService,
   ) {}
 
-  async auth(credentials: LoginCredentials): Promise<any> {
+  async auth(credentials: LoginCredentials): Promise<{ accessToken: string }> {
     const { email, loginPassword } = credentials;
     const user = await this.usersService.findOne(findByEmailFilter(email));
     if (!user) {
