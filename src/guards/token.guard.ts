@@ -4,14 +4,13 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { TokenService } from 'src/tokens/tokens.service';
 
 @Injectable()
 export default class TokenGuard implements CanActivate {
   constructor(private readonly tokenService: TokenService) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const req: Request = context.switchToHttp().getRequest();
+    const req = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(req);
 
     try {
@@ -42,7 +41,7 @@ export default class TokenGuard implements CanActivate {
     }
   }
 
-  private extractTokenFromHeader(request: Request): string | undefined {
+  private extractTokenFromHeader(request: any): string | undefined {
     const [type, token] = request.headers.authorization?.split(' ') ?? [];
     return type === 'Bearer' ? token : undefined;
   }

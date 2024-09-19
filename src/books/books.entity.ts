@@ -68,3 +68,10 @@ export class UploadBookDTO {
   @IsString() //TODO : make a Regex for ISBN
   isbn: string;
 }
+
+export interface BookData {
+  title: string;
+  publisher: string;
+  publish_date: string;
+  author: string;
+}

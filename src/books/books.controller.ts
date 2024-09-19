@@ -2,14 +2,16 @@ import {
   // Body,
   Controller,
   Get,
+  Param,
   Post,
+  Req,
+  Res,
   // Req,
   // Res,
   UseGuards,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import TokenGuard from 'src/guards/token.guard';
-//import { UploadBookDTO } from '../books/books.entity';
 
 @Controller('/books')
 export class BooksControllers {
@@ -21,12 +23,19 @@ export class BooksControllers {
   @Get('/:isbn')
   async findOne() {}
 
-  // @Post()
-  // async uploadBook(
-  //   @Body() dto: UploadBookDTO,
-  //   @Req() req: any,
-  //   @Res() res: any,
-  // ) {}
+  @Post('/check/:isbn')
+  async checkBookData(
+    @Param() params: { isbn: string },
+    @Req() req: any,
+    @Res() res: any,
+  ): Promise<any> {
+    try {
+      const response = await this.booksService.getBookDataByIsbn(params.isbn);
+      res.status(200).json(response);
+    } catch (e) {
+      res.status(500).json('Server Error');
+    }
+  }
 
   @UseGuards(TokenGuard)
   @Get() //findAllBooks for a specific User (get userId from TokenPayload)

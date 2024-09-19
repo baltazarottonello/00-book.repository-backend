@@ -14,3 +14,7 @@ export namespace JwtConstants {
   export const JWT_SECRET = process.env.JWT_SECRET;
   export const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET;
 }
+
+export namespace ExternalBooksApiConstants {
+  export const BASE_URL = process.env.EXTERNAL_BOOKS_API_BASE_URL;
+}
