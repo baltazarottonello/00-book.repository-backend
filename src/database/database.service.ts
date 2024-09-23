@@ -4,6 +4,7 @@ import { IDatabaseService } from './idatabase.service';
 import {
   Attributes,
   CreationAttributes,
+  DestroyOptions,
   FindOptions,
   UpdateOptions,
 } from 'sequelize';
@@ -23,10 +24,19 @@ export class DatabaseService<T extends Model> implements IDatabaseService<T> {
     return result;
   }
 
+  async findAll(options: FindOptions<Attributes<T>>): Promise<T[]> {
+    const result = await this.genericRepository.findAll(options);
+    return result;
+  }
+
   async update(
     values: UpdateValues<T>,
-    options?: UpdateOptions<Attributes<T>>,
+    options: UpdateOptions<Attributes<T>>,
   ): Promise<void> {
     await this.genericRepository.update(values, options);
+  }
+
+  async delete(options: DestroyOptions<Attributes<T>>): Promise<void> {
+    await this.genericRepository.destroy(options);
   }
 }

@@ -24,6 +24,7 @@ export class RefreshToken extends Model {
   @Column({
     primaryKey: true,
     autoIncrement: true,
+    allowNull: false,
     type: DataType.INTEGER,
   })
   id: number;
@@ -48,7 +49,7 @@ export class RefreshToken extends Model {
   })
   isActive: boolean;
 
-  @BelongsTo(() => User, { onDelete: 'CASCADE', onUpdate: 'CASCADE' }) //WHEN A USER DELETED REFTOKEN/S ALSO DELETED
+  @BelongsTo(() => User, { onDelete: 'CASCADE' }) //WHEN A USER DELETED REFTOKEN/S ALSO DELETED
   user: User;
 }
 

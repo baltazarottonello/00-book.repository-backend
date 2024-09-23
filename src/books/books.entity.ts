@@ -25,11 +25,10 @@ export class Books extends Model {
   title: string;
 
   @Column({
-    allowNull: true,
+    allowNull: false,
     type: DataType.INTEGER,
   })
-  //@ForeignKey(() => Authors)
-  authorId: number;
+  author: string;
 
   @Column({
     allowNull: false,
@@ -38,19 +37,13 @@ export class Books extends Model {
   isbn: string;
 
   @Column({
-    allowNull: true,
+    allowNull: false,
     type: DataType.INTEGER,
   })
-  edition: number;
+  edition_year: number;
 
   @Column({
-    allowNull: true,
-    type: DataType.INTEGER,
-  })
-  year: number;
-
-  @Column({
-    allowNull: true,
+    allowNull: false,
     type: DataType.STRING,
   })
   publisher: string;
@@ -60,8 +53,6 @@ export class Books extends Model {
     type: DataType.STRING(10),
   })
   access: string;
-  //   @HasMany(() => Authors, { onDelete: 'NO ACTION' })
-  //   authors: Authors[];
 }
 
 export class UploadBookDTO {
@@ -72,6 +63,6 @@ export class UploadBookDTO {
 export interface BookData {
   title: string;
   publisher: string;
-  publish_date: string;
+  edition_year: string;
   author: string;
 }

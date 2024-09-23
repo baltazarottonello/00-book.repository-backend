@@ -7,6 +7,7 @@ import {
   HasMany,
   IsUUID,
 } from 'sequelize-typescript';
+import { Books } from 'src/books/books.entity';
 import { RefreshToken } from 'src/tokens/tokens.entity';
 
 @Table({
@@ -55,6 +56,9 @@ export class User extends Model {
 
   @HasMany(() => RefreshToken)
   refreshTokens: RefreshToken[];
+
+  @HasMany(() => Books)
+  books: Books[];
 }
 
 export class SignUpDTO {

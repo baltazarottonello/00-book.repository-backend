@@ -19,3 +19,7 @@
 ##user_email (email)
 
 ##reftoken_userid_isactive (userId, isActive)
+
+##Entitys
+
+##User, Book, RefreshToken
